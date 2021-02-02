@@ -13,3 +13,14 @@ class UserList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, IsAdminUser,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class UserProfile(generics.RetrieveUpdateDestroyAPIView):
+    """
+    User profile to be retrieved, updated or destroyed.
+    """
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return User.objects.filter(pk=self.request.user.pk).first()
