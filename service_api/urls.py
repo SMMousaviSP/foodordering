@@ -10,11 +10,11 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     path('openapi', get_schema_view(
-        title="Your Project",
-        description="API for all things …",
+        title="Food Ordering Service API",
+        description="API documentation for every accessable url to you",
         version="1.0.0"
     ), name='openapi-schema'),
-    path('swagger-ui/', TemplateView.as_view(
+    path('documentation/', TemplateView.as_view(
         template_name='swagger-ui/swagger-ui.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='swagger-ui'),
