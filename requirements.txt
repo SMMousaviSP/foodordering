@@ -2,4 +2,6 @@ asgiref==3.3.1
 Django==3.1.5
 djangorestframework==3.12.2
 pytz==2020.5
+PyYAML==5.4.1
 sqlparse==0.4.1
+uritemplate==3.0.1
