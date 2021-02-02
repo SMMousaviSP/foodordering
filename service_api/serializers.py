@@ -43,11 +43,11 @@ class UserSerializer(serializers.ModelSerializer):
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.set_password(validated_data.get('password'))
 
-        profile.gender = profile_data.get('birth_date', profile.birth_date)
+        profile.birth_date = profile_data.get('birth_date', profile.birth_date)
         profile.gender = profile_data.get('gender', profile.gender)
-        profile.gender = profile_data.get('phone_number', profile.phone_number)
-        profile.gender = profile_data.get('city', profile.city)
-        profile.gender = profile_data.get('manager', profile.manager)
+        profile.phone_number = profile_data.get('phone_number', profile.phone_number)
+        profile.city = profile_data.get('city', profile.city)
+        profile.is_manager = profile_data.get('is_manager', profile.is_manager)
 
         instance.save()
 
