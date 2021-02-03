@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from service_api.models import Restaurant
+from service_api.models import Restaurant, Food
 
 
 class ManagerPermission(permissions.BasePermission):
@@ -23,3 +23,20 @@ class HasRestaurant(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return bool(Restaurant.objects.filter(manager=request.user.pk).first())
+
+
+class IsFoodOwner(permissions.BasePermission):
+    """
+    Check if the manager is the owner of the food which wants to edit.
+    """
+
+    message = "You are not the owner of this food restaurant"
+
+    def has_permission(self, request, view):
+        food = Food.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        if food is None:
+            return False
+        return (
+            Restaurant.objects.filter(manager=request.user.pk).first()
+            == food.restaurant
+        )
