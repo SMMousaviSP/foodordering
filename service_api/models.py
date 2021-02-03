@@ -43,7 +43,7 @@ class Food(models.Model):
     is_vegan = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
-        return "<{}: {}$>".format(self.name, self.current_price)
+        return "<{}: {}$>".format(self.name, self.price)
 
 
 class Order(models.Model):
