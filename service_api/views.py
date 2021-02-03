@@ -7,9 +7,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 
-from service_api.models import Restaurant
+from service_api.models import Restaurant, Food
 from service_api.serializers import UserSerializer, LoginSerializer, RestaurantSerializer, CreateRestaurantSerializer, CreateFoodSerializer
-from service_api.permissions import ManagerPermission
+from service_api.permissions import ManagerPermission, HasRestaurant
 
 
 class api_login(generics.CreateAPIView):
@@ -81,12 +81,16 @@ class CreateRestaurant(generics.CreateAPIView):
         serializer.save(manager=self.request.user)
 
 
-class CreateFood(generics.CreateAPIView):
+class ManagerFoodListCreate(generics.ListCreateAPIView):
     """
     Create food for restaurant by manager.
     """
     serializer_class = CreateFoodSerializer
-    permission_classes = (IsAuthenticated, ManagerPermission,)
+    permission_classes = (IsAuthenticated, ManagerPermission, HasRestaurant,)
+
+    def get_queryset(self):
+        restaurant = Restaurant.objects.filter(manager=self.request.user.pk).first()
+        return Food.objects.filter(restaurant=restaurant)
 
     def perform_create(self, serializer):
         restaurant = Restaurant.objects.filter(manager=self.request.user.pk).first()
