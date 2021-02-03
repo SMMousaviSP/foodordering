@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator
 
 
 class Profile(models.Model):
@@ -41,3 +41,15 @@ class Food(models.Model):
     )
     is_organic = models.BooleanField(default=False, blank=False, null=False)
     is_vegan = models.BooleanField(default=False, blank=False, null=False)
+
+    def __str__(self):
+        return "<{}: {}$>".format(self.name, self.current_price)
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    foods = models.ManyToManyField(Food)
+    is_accepted = models.BooleanField(default=False, blank=False, null=False)
+    time_to_deliver = models.IntegerField(
+        validators=[MinValueValidator(1)], blank=False, null=False, default=30
+    )
