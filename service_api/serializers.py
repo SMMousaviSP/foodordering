@@ -4,6 +4,20 @@ from rest_framework import serializers
 from service_api.models import Profile
 
 
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password',)
+        extra_kwargs = {'username': {'allow_null': False, 'required': True, 'allow_blank': False, 'write_only': True},
+                        'password': {'allow_null': False, 'required': True, 'allow_blank': False, 'write_only': True}}
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
