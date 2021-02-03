@@ -15,7 +15,7 @@ from service_api.serializers import (
     CreateRestaurantSerializer,
     FoodSerializer,
 )
-from service_api.permissions import ManagerPermission, HasRestaurant
+from service_api.permissions import ManagerPermission, HasRestaurant, IsFoodOwner
 
 
 class api_login(generics.CreateAPIView):
@@ -118,3 +118,18 @@ class ManagerFoodListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         restaurant = Restaurant.objects.filter(manager=self.request.user.pk).first()
         serializer.save(restaurant=restaurant)
+
+
+class UpdateFood(generics.UpdateAPIView):
+    """
+    Update food information and price.
+    """
+
+    serializer_class = FoodSerializer
+    permission_classes = (
+        IsAuthenticated,
+        ManagerPermission,
+        HasRestaurant,
+        IsFoodOwner,
+    )
+    queryset = Food.objects.all()
