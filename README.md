@@ -10,7 +10,7 @@ pip install virtualenv
 ```
 
 Create a virtual environment in main directory of the project (same folder as
- this file) preferably with a name like `venv`, `env`, `.venv` or `.env` so
+this file) preferably with a name like `venv`, `env`, `.venv` or `.env` so
 `.gitignore` file can ignore it without any modification, I assumed you're
 gonna use `.venv`.
 ```
