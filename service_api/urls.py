@@ -19,6 +19,7 @@ urlpatterns = [
         extra_context={'schema_url': 'openapi-schema'}
     ), name='swagger-ui'),
 
+    path('register/', views.Register.as_view()),
     path('login/', views.api_login.as_view()),
     path('logout/', views.api_logout),
     path('users/', views.UserList.as_view()),

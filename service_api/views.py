@@ -33,6 +33,13 @@ def api_logout(request):
     return Response(status=status.HTTP_200_OK)
 
 
+class Register(generics.CreateAPIView):
+    """
+    Register a new account.
+    """
+    serializer_class = UserSerializer
+
+
 class UserList(generics.ListCreateAPIView):
     """
     Show list of all users or create a new user.
