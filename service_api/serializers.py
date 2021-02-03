@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from service_api.models import Profile
+from service_api.models import Profile, Restaurant
 
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -68,3 +68,16 @@ class UserSerializer(serializers.ModelSerializer):
         profile.save()
 
         return instance
+
+
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = '__all__'
+
+
+class CreateRestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = '__all__'
+        extra_kwargs = {'manager': {'read_only': True}}
