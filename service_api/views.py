@@ -7,13 +7,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 
-from service_api.models import Restaurant, Food
+from service_api.models import Restaurant, Food, Order
 from service_api.serializers import (
     UserSerializer,
     LoginSerializer,
     RestaurantSerializer,
     CreateRestaurantSerializer,
     FoodSerializer,
+    PlaceOrderSerializer,
 )
 from service_api.permissions import ManagerPermission, HasRestaurant, IsFoodOwner
 
@@ -133,3 +134,15 @@ class UpdateFood(generics.UpdateAPIView):
         IsFoodOwner,
     )
     queryset = Food.objects.all()
+
+
+class CreateOrder(generics.CreateAPIView):
+    """
+    Place an Order.
+    """
+
+    serializer_class = PlaceOrderSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        serializer.save(customer=self.request.user)
