@@ -13,7 +13,7 @@ from service_api.serializers import (
     LoginSerializer,
     RestaurantSerializer,
     CreateRestaurantSerializer,
-    CreateFoodSerializer,
+    FoodSerializer,
 )
 from service_api.permissions import ManagerPermission, HasRestaurant
 
@@ -104,7 +104,7 @@ class ManagerFoodListCreate(generics.ListCreateAPIView):
     Create food for restaurant by manager.
     """
 
-    serializer_class = CreateFoodSerializer
+    serializer_class = FoodSerializer
     permission_classes = (
         IsAuthenticated,
         ManagerPermission,

@@ -112,7 +112,7 @@ class CreateRestaurantSerializer(serializers.ModelSerializer):
         extra_kwargs = {"manager": {"read_only": True}}
 
 
-class CreateFoodSerializer(serializers.ModelSerializer):
+class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
         fields = "__all__"
