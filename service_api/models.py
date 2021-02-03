@@ -36,7 +36,7 @@ class Restaurant(models.Model):
 class Food(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.RESTRICT)
     name = models.CharField(max_length=255, blank=False, null=False)
-    current_price = models.DecimalField(
+    price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=False, null=False
     )
     is_organic = models.BooleanField(default=False, blank=False, null=False)
