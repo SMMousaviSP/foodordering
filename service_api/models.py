@@ -18,3 +18,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
+
+
+class Restaurant(models.Model):
+    manager = models.OneToOneField(User, on_delete=models.RESTRICT)
+    name = models.CharField(max_length=255, blank=False, null=False)
+    food_type = models.CharField(max_length=255, blank=False, null=False)
+    city = models.CharField(max_length=255, blank=False, null=False)
+    address = models.CharField(max_length=1024, blank=False, null=False)
+    open_time = models.TimeField(blank=False, null=False)
+    close_time = models.TimeField(blank=False, null=False)
