@@ -24,4 +24,6 @@ urlpatterns = [
     path('logout/', views.api_logout),
     path('users/', views.UserList.as_view()),
     path('profile/', views.UserProfile.as_view()),
+    path('restaurants/', views.RestaurantList.as_view()),
+    path('newrestaurant/', views.CreateRestaurant.as_view()),
 ]
