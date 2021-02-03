@@ -51,6 +51,7 @@ class Order(models.Model):
     foods = models.ManyToManyField(Food)
     is_accepted = models.BooleanField(default=False, blank=False, null=False)
     is_cancelled = models.BooleanField(default=False, blank=False, null=False)
+    note = models.CharField(max_length=1024, default="")
     time_to_deliver = models.IntegerField(
         validators=[MinValueValidator(1)], blank=False, null=False, default=30
     )
