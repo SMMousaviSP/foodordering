@@ -26,4 +26,5 @@ urlpatterns = [
     path('profile/', views.UserProfile.as_view()),
     path('restaurants/', views.RestaurantList.as_view()),
     path('newrestaurant/', views.CreateRestaurant.as_view()),
+    path('createfood/', views.CreateFood.as_view()),
 ]
