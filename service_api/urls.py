@@ -41,6 +41,7 @@ urlpatterns = [
     path(f"{MANAGER_PREFIX}/newrestaurant/", views.CreateRestaurant.as_view()),
     path(f"{MANAGER_PREFIX}/foods/", views.ManagerFoodListCreate.as_view()),
     path(f"{MANAGER_PREFIX}/updatefood/<int:pk>/", views.UpdateFood.as_view()),
+    path(f"{MANAGER_PREFIX}/orders/", views.ManagerOrderList.as_view()),
     # Customers API URI
     path(f"{CUSTOMER_PREFIX}/neworder/", views.CreateOrder.as_view()),
     path(f"{CUSTOMER_PREFIX}/activeorders/", views.CustomerActiveOrderList.as_view()),
