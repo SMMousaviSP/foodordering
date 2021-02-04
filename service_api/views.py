@@ -146,3 +146,17 @@ class CreateOrder(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user)
+
+
+class CustomerActiveOrderList(generics.ListAPIView):
+    """
+    List of all active orders which are not cancelled or delivered.
+    """
+
+    serializer_class = PlaceOrderSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return Order.objects.filter(
+            customer=self.request.user.pk, is_cancelled=False, is_delivered=False
+        )
