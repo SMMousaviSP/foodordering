@@ -146,3 +146,9 @@ class PlaceOrderSerializer(serializers.ModelSerializer):
                     "All ordered foods should be from one restaurant."
                 )
         return data
+
+
+class CancellOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ("is_cancelled",)
