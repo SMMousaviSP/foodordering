@@ -23,7 +23,7 @@ from service_api.permissions import (
     ManagerPermission,
     HasRestaurant,
     IsFoodOwner,
-    CustomerCancellOrder,
+    CustomerCancellOrderPermission,
     IsCustomerOfOrder,
     CustomerApproveDeliveredOrderPermission,
 )
@@ -205,7 +205,7 @@ class CustomerCancellOrder(generics.UpdateAPIView):
     permission_classes = (
         IsAuthenticated,
         IsCustomerOfOrder,
-        CustomerCancellOrder,
+        CustomerCancellOrderPermission,
     )
     queryset = Order.objects.all()
 

@@ -42,7 +42,7 @@ class IsFoodOwner(permissions.BasePermission):
         )
 
 
-class CustomerCancellOrder(permissions.BasePermission):
+class CustomerCancellOrderPermission(permissions.BasePermission):
     """
     Check if the customer has the permission to cancell the order.
     """
