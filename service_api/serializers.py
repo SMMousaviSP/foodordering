@@ -139,9 +139,9 @@ class PlaceOrderSerializer(serializers.ModelSerializer):
         Check all ordered foods to be from one restaurants.
         """
         food_list = data["foods"]
-        food_id = food_list[0].pk
+        restaurant_id = food_list[0].restaurant.pk
         for food in food_list:
-            if food.pk != food_id:
+            if food.restaurant.pk != restaurant_id:
                 raise serializers.ValidationError(
                     "All ordered foods should be from one restaurant."
                 )
