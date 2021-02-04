@@ -66,3 +66,15 @@ class IsCustomerOfOrder(permissions.BasePermission):
     def has_permission(self, request, view):
         order = Order.objects.filter(customer=request.user.pk).first()
         return order is not None
+
+
+class CustomerApproveDeliveredOrderPermission(permissions.BasePermission):
+    """
+    Check if the customer has permission to aprrove the delivered order.
+    """
+
+    message = "You can not approve this order as delivered."
+
+    def has_permission(self, request, view):
+        order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        return order.is_accepted and not order.is_cancelled
