@@ -48,4 +48,8 @@ urlpatterns = [
         f"{CUSTOMER_PREFIX}/cancelledorders/",
         views.CustomerCancelledOrderList.as_view(),
     ),
+    path(
+        f"{CUSTOMER_PREFIX}/deliveredorders/",
+        views.CustomerDeliveredOrderList.as_view(),
+    ),
 ]
