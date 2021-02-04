@@ -53,6 +53,8 @@ class CustomerCancellOrder(permissions.BasePermission):
 
     def has_permission(self, request, view):
         order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        if order is None:
+            return False
         return not order.is_accepted and not order.is_cancelled
 
 
@@ -77,4 +79,6 @@ class CustomerApproveDeliveredOrderPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
         order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        if order is None:
+            return False
         return order.is_accepted and not order.is_cancelled
