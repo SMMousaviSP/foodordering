@@ -32,6 +32,9 @@ class Restaurant(models.Model):
     open_time = models.TimeField(blank=False, null=False)
     close_time = models.TimeField(blank=False, null=False)
 
+    def __str__(self):
+        return "<{}: {}>".format(self.pk, self.name)
+
 
 class Food(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.RESTRICT)
@@ -43,7 +46,7 @@ class Food(models.Model):
     is_vegan = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
-        return "<{}: {}$>".format(self.name, self.price)
+        return "<{}: {}$>".format(self.restaurant, self.name)
 
 
 class Order(models.Model):
