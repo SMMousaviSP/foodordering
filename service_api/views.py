@@ -160,3 +160,17 @@ class CustomerActiveOrderList(generics.ListAPIView):
         return Order.objects.filter(
             customer=self.request.user.pk, is_cancelled=False, is_delivered=False
         )
+
+
+class CustomerCancelledOrderList(generics.ListAPIView):
+    """
+    List of customer's cancelled orders.
+    """
+
+    serializer_class = PlaceOrderSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return Order.objects.filter(
+            customer=self.request.user.pk, is_cancelled=True
+        )
