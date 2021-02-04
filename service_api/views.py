@@ -228,3 +228,18 @@ class CustomerAprroveDeliveredOrder(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save(delivered_datetime=timezone.now())
+
+
+class ManagerOrderList(generics.ListAPIView):
+    """
+    List of manager's restaurant orders.
+    """
+
+    serializer_class = PlaceOrderSerializer
+    permission_classes = (IsAuthenticated, ManagerPermission, HasRestaurant,)
+
+    def get_queryset(self):
+        restaurant = Restaurant.objects.filter(manager=self.request.user.pk).first()
+        foods = Food.objects.filter(restaurant=restaurant.pk).values_list("id").first()
+        orders = Order.objects.filter(foods__in=foods)
+        return orders
