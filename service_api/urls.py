@@ -44,7 +44,7 @@ urlpatterns = [
     path(f"{MANAGER_PREFIX}/activeorders/", views.ManagerActiveOrderList.as_view()),
     path(
         f"{MANAGER_PREFIX}/cancelledorders/",
-        views.CustomerCancelledOrderList.as_view(),
+        views.ManagerCancelledOrderList.as_view(),
     ),
     # Customers API URI
     path(f"{CUSTOMER_PREFIX}/neworder/", views.CreateOrder.as_view()),
