@@ -26,6 +26,8 @@ from service_api.permissions import (
     CustomerCancellOrderPermission,
     IsCustomerOfOrder,
     CustomerApproveDeliveredOrderPermission,
+    IsManagerOfOrder,
+    ManagerCancellOrderPermission,
 )
 
 
@@ -291,3 +293,20 @@ class ManagerDeliveredOrderList(generics.ListAPIView):
             foods__in=foods, is_delivered=True
         )
         return orders
+
+
+class ManagerCancellOrder(generics.UpdateAPIView):
+    """
+    Cancell order if has permission to.
+    """
+
+    serializer_class = CancellOrderSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsManagerOfOrder,
+        ManagerCancellOrderPermission,
+    )
+    queryset = Order.objects.all()
+
+    def perform_update(self, serializer):
+        serializer.save(cancell_datetime=timezone.now())
