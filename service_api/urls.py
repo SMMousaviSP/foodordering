@@ -50,6 +50,7 @@ urlpatterns = [
         f"{MANAGER_PREFIX}/deliveredorders/",
         views.ManagerDeliveredOrderList.as_view(),
     ),
+    path(f"{MANAGER_PREFIX}/cancell/<int:pk>/", views.ManagerCancellOrder.as_view()),
     # Customers API URI
     path(f"{CUSTOMER_PREFIX}/neworder/", views.CreateOrder.as_view()),
     path(f"{CUSTOMER_PREFIX}/activeorders/", views.CustomerActiveOrderList.as_view()),
