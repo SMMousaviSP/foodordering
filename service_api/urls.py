@@ -6,6 +6,9 @@ from rest_framework.schemas import get_schema_view
 from service_api import views
 
 
+CUSTOMER_PREFIX = 'customer'
+MANAGER_PREFIX = 'manager'
+
 urlpatterns = [
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path(
@@ -31,9 +34,9 @@ urlpatterns = [
     path("users/", views.UserList.as_view()),
     path("profile/", views.UserProfile.as_view()),
     path("restaurants/", views.RestaurantList.as_view()),
-    path("newrestaurant/", views.CreateRestaurant.as_view()),
-    path("managerfoods/", views.ManagerFoodListCreate.as_view()),
-    path("updatefood/<int:pk>/", views.UpdateFood.as_view()),
-    path("neworder/", views.CreateOrder.as_view()),
-    path("customer/activeorders/", views.CustomerActiveOrderList.as_view()),
+    path(f"{MANAGER_PREFIX}/newrestaurant/", views.CreateRestaurant.as_view()),
+    path(f"{MANAGER_PREFIX}/foods/", views.ManagerFoodListCreate.as_view()),
+    path(f"{MANAGER_PREFIX}/updatefood/<int:pk>/", views.UpdateFood.as_view()),
+    path(f"{CUSTOMER_PREFIX}/neworder/", views.CreateOrder.as_view()),
+    path(f"{CUSTOMER_PREFIX}/activeorders/", views.CustomerActiveOrderList.as_view()),
 ]
