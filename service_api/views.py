@@ -15,8 +15,15 @@ from service_api.serializers import (
     CreateRestaurantSerializer,
     FoodSerializer,
     PlaceOrderSerializer,
+    CancellOrderSerializer,
 )
-from service_api.permissions import ManagerPermission, HasRestaurant, IsFoodOwner
+from service_api.permissions import (
+    ManagerPermission,
+    HasRestaurant,
+    IsFoodOwner,
+    CustomerCancellOrder,
+    IsCustomerOfOrder,
+)
 
 
 class api_login(generics.CreateAPIView):
@@ -171,9 +178,7 @@ class CustomerCancelledOrderList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return Order.objects.filter(
-            customer=self.request.user.pk, is_cancelled=True
-        )
+        return Order.objects.filter(customer=self.request.user.pk, is_cancelled=True)
 
 
 class CustomerDeliveredOrderList(generics.ListAPIView):
@@ -185,6 +190,14 @@ class CustomerDeliveredOrderList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return Order.objects.filter(
-            customer=self.request.user.pk, is_delivered=True
-        )
+        return Order.objects.filter(customer=self.request.user.pk, is_delivered=True)
+
+
+class CustomerCancellOrder(generics.UpdateAPIView):
+    """
+    Cancell order if has permission to.
+    """
+
+    serializer_class = CancellOrderSerializer
+    permission_classes = (IsAuthenticated, IsCustomerOfOrder, CustomerCancellOrder,)
+    queryset = Order.objects.all()
