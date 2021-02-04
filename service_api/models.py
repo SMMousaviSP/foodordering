@@ -54,6 +54,11 @@ class Order(models.Model):
     foods = models.ManyToManyField(Food)
     is_accepted = models.BooleanField(default=False, blank=False, null=False)
     is_cancelled = models.BooleanField(default=False, blank=False, null=False)
+    is_delivered = models.BooleanField(default=False, blank=False, null=False)
+    create_datetime = models.DateTimeField(auto_now_add=True, editable=False, blank=True)
+    accept_datetime = models.DateTimeField(default=None, null=True, blank=True)
+    cancell_datetime = models.DateTimeField(default=None, null=True, blank=True)
+    delivered_datetime = models.DateTimeField(default=None, null=True, blank=True)
     note = models.CharField(max_length=1024, default="")
     time_to_deliver = models.IntegerField(
         validators=[MinValueValidator(1)], blank=False, null=False, default=30
