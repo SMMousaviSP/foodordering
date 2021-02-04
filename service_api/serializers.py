@@ -158,3 +158,9 @@ class ApproveDeliveredOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("is_delivered",)
+
+
+class AcceptOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ("is_accepted", "time_to_deliver",)
