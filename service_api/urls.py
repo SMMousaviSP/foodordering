@@ -52,4 +52,5 @@ urlpatterns = [
         f"{CUSTOMER_PREFIX}/deliveredorders/",
         views.CustomerDeliveredOrderList.as_view(),
     ),
+    path(f"{CUSTOMER_PREFIX}/cancell/<int:pk>/", views.CustomerCancellOrder.as_view()),
 ]
