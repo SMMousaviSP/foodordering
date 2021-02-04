@@ -48,12 +48,12 @@ class CustomerCancellOrder(permissions.BasePermission):
     """
 
     message = (
-        "Your order has been accepted by the restaurant, you can't cancell it anymore."
+        "You don't have permission to cancell this order."
     )
 
     def has_permission(self, request, view):
-        order = Order.objects.filter(customer=view.kwargs.get("pk", None)).first()
-        return not order.is_accepted
+        order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        return not order.is_accepted and not order.is_cancelled
 
 
 class IsCustomerOfOrder(permissions.BasePermission):
@@ -64,5 +64,5 @@ class IsCustomerOfOrder(permissions.BasePermission):
     message = "You can't cancell this order because you are not it's owner."
 
     def has_permission(self, request, view):
-        order = Order.objects.filter(customer=view.kwargs.get("pk", None)).first()
+        order = Order.objects.filter(customer=request.user.pk).first()
         return order is not None
