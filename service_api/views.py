@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.utils import timezone
 
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
@@ -16,6 +17,7 @@ from service_api.serializers import (
     FoodSerializer,
     PlaceOrderSerializer,
     CancellOrderSerializer,
+    ApproveDeliveredOrderSerializer,
 )
 from service_api.permissions import (
     ManagerPermission,
@@ -23,6 +25,7 @@ from service_api.permissions import (
     IsFoodOwner,
     CustomerCancellOrder,
     IsCustomerOfOrder,
+    CustomerApproveDeliveredOrderPermission,
 )
 
 
@@ -199,5 +202,26 @@ class CustomerCancellOrder(generics.UpdateAPIView):
     """
 
     serializer_class = CancellOrderSerializer
-    permission_classes = (IsAuthenticated, IsCustomerOfOrder, CustomerCancellOrder,)
+    permission_classes = (
+        IsAuthenticated,
+        IsCustomerOfOrder,
+        CustomerCancellOrder,
+    )
     queryset = Order.objects.all()
+
+
+class CustomerAprroveDeliveredOrder(generics.UpdateAPIView):
+    """
+    Aprrove that order has been delivered.
+    """
+
+    serializer_class = ApproveDeliveredOrderSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsCustomerOfOrder,
+        CustomerApproveDeliveredOrderPermission,
+    )
+    queryset = Order.objects.all()
+
+    def perform_update(self, serializer):
+        serializer.save(delivered_datetime=timezone.now())
