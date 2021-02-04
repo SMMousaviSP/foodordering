@@ -123,7 +123,22 @@ class PlaceOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = "__all__"
-        extra_kwargs = {"customer": {"read_only": True},
-                        "is_accepted": {"read_only": True},
-                        "is_cancelled": {"read_only": True},
-                        "time_to_deliver": {"read_only": True}}
+        extra_kwargs = {
+            "customer": {"read_only": True},
+            "is_accepted": {"read_only": True},
+            "is_cancelled": {"read_only": True},
+            "time_to_deliver": {"read_only": True},
+        }
+
+    def validate(self, data):
+        """
+        Check all ordered foods to be from one restaurants.
+        """
+        food_list = data["foods"]
+        food_id = food_list[0].pk
+        for food in food_list:
+            if food.pk != food_id:
+                raise serializers.ValidationError(
+                    "All ordered foods should be from one restaurant."
+                )
+        return data
