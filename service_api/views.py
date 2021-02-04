@@ -27,7 +27,7 @@ from service_api.permissions import (
     IsCustomerOfOrder,
     CustomerApproveDeliveredOrderPermission,
     IsManagerOfOrder,
-    ManagerCancellOrderPermission,
+    ManagerCancellAcceptOrderPermission,
 )
 
 
@@ -304,7 +304,7 @@ class ManagerCancellOrder(generics.UpdateAPIView):
     permission_classes = (
         IsAuthenticated,
         IsManagerOfOrder,
-        ManagerCancellOrderPermission,
+        ManagerCancellAcceptOrderPermission,
     )
     queryset = Order.objects.all()
 

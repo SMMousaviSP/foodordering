@@ -99,7 +99,7 @@ class IsManagerOfOrder(permissions.BasePermission):
         return food.restaurant.manager.pk == request.user.pk
 
 
-class ManagerCancellOrderPermission(permissions.BasePermission):
+class ManagerCancellAcceptOrderPermission(permissions.BasePermission):
     """
     Check if the manager has permission to cancell the order.
     """
