@@ -34,5 +34,6 @@ urlpatterns = [
     path("newrestaurant/", views.CreateRestaurant.as_view()),
     path("managerfoods/", views.ManagerFoodListCreate.as_view()),
     path("updatefood/<int:pk>/", views.UpdateFood.as_view()),
-    path("neworder/", views.CreateOrder.as_view())
+    path("neworder/", views.CreateOrder.as_view()),
+    path("customer/activeorders/", views.CustomerActiveOrderList.as_view()),
 ]
