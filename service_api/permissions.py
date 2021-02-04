@@ -81,7 +81,7 @@ class CustomerApproveDeliveredOrderPermission(permissions.BasePermission):
         order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
         if order is None:
             return False
-        return order.is_accepted and not order.is_cancelled
+        return order.is_accepted and not order.is_cancelled and not order.is_delivered
 
 
 class IsManagerOfOrder(permissions.BasePermission):
