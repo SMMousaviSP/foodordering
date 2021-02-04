@@ -209,6 +209,9 @@ class CustomerCancellOrder(generics.UpdateAPIView):
     )
     queryset = Order.objects.all()
 
+    def perform_update(self, serializer):
+        serializer.save(cancell_datetime=timezone.now())
+
 
 class CustomerAprroveDeliveredOrder(generics.UpdateAPIView):
     """
