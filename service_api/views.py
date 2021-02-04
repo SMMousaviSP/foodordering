@@ -18,6 +18,7 @@ from service_api.serializers import (
     PlaceOrderSerializer,
     CancellOrderSerializer,
     ApproveDeliveredOrderSerializer,
+    AcceptOrderSerializer,
 )
 from service_api.permissions import (
     ManagerPermission,
@@ -310,3 +311,20 @@ class ManagerCancellOrder(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save(cancell_datetime=timezone.now())
+
+
+class ManagerAcceptOrder(generics.UpdateAPIView):
+    """
+    Accept order if has permission to.
+    """
+
+    serializer_class = AcceptOrderSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsManagerOfOrder,
+        ManagerCancellAcceptOrderPermission,
+    )
+    queryset = Order.objects.all()
+
+    def perform_update(self, serializer):
+        serializer.save(accept_datetime=timezone.now())
