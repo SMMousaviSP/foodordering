@@ -97,3 +97,17 @@ class IsManagerOfOrder(permissions.BasePermission):
         if order is None or food is None:
             return False
         return food.restaurant.manager.pk == request.user.pk
+
+
+class ManagerCancellOrderPermission(permissions.BasePermission):
+    """
+    Check if the manager has permission to cancell the order.
+    """
+
+    message = "You don't have permission to cancell this order."
+
+    def has_permission(self, request, view):
+        order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        if order is None:
+            return False
+        return not order.is_cancelled and not order.is_accepted
