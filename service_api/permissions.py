@@ -93,6 +93,8 @@ class IsManagerOfOrder(permissions.BasePermission):
 
     def has_permission(self, request, view):
         order = Order.objects.filter(pk=view.kwargs.get("pk", None)).first()
+        if order is None:
+            return False
         food = order.foods.first()
         if order is None or food is None:
             return False
