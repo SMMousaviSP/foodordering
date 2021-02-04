@@ -127,6 +127,10 @@ class PlaceOrderSerializer(serializers.ModelSerializer):
             "customer": {"read_only": True},
             "is_accepted": {"read_only": True},
             "is_cancelled": {"read_only": True},
+            "is_delivered": {"read_only": True},
+            "accept_datetime": {"read_only": True},
+            "cancell_datetime": {"read_only": True},
+            "delivered_datetime": {"read_only": True},
             "time_to_deliver": {"read_only": True},
         }
 
