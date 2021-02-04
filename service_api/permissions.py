@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from service_api.models import Restaurant, Food
+from service_api.models import Restaurant, Food, Order
 
 
 class ManagerPermission(permissions.BasePermission):
@@ -40,3 +40,17 @@ class IsFoodOwner(permissions.BasePermission):
             Restaurant.objects.filter(manager=request.user.pk).first()
             == food.restaurant
         )
+
+
+class CustomerCancellOrder(permissions.BasePermission):
+    """
+    Check if the customer has the permission to cancell the order.
+    """
+
+    message = (
+        "Your order has been accepted by the restaurant, you can't cancell it anymore"
+    )
+
+    def has_permission(self, request, view):
+        order = Order.objects.filter(customer=view.kwargs.get("pk", None)).first()
+        return not order.is_accepted
