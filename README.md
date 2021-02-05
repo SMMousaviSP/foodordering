@@ -1,5 +1,5 @@
 # Food Ordering Service API
-This project is developed with django for educational purposes and should not
+This project developed by me and [Ali Abbasi](https://github.com/aliabbasi6138) with django for educational purposes and should not
 be used in production without checking for security issues and other important
 stuff.
 
