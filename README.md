@@ -1,7 +1,8 @@
 # Food Ordering Service API
-This project has been developed by [Seyed Mohammad Mousavi](https://github.com/SMMousaviSP) and [Ali Abbasi](https://github.com/aliabbasi6138) with django for educational purposes and should not
-be used in production without checking for security issues and other important
-stuff.
+This project has been developed by [Seyed Mohammad Mousavi](https://github.com/SMMousaviSP)
+and [Ali Abbasi](https://github.com/aliabbasi6138) with django for educational
+purposes and should not be used in production without checking for security
+issues and other important stuff.
 
 For running this on your computer first make sure you have `python3.6` or later
 , then install `virtualenv` package.
